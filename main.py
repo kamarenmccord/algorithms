@@ -1,5 +1,6 @@
 # Test file for all things linear
 import test_loader
+from buble_sort import bubble_sort
 
 # main variables
 test_data = test_loader.get_input_size()
@@ -23,16 +24,7 @@ if integrity_skip:
 start_time = test_loader.check_time()
 
 # Do a sort - may be a function call later
-# Bubble sort O(N^2)
-length = len(test_data)
-for i in range(length):
-    already_sorted = True
-    for j in range(length-i-1):
-        if test_data[j] > test_data[j+1]:
-            test_data[j], test_data[j+1] = test_data[j+1], test_data[j]
-            already_sorted = False
-    if already_sorted:
-        break
+bubble_sort(test_data)
 
 
 # get time after running
@@ -48,4 +40,4 @@ if not integrity_skip:
         print(test_data[:25])
 
 # print how long it took to sort
-print(test_loader.time_calc(start_time, end_time, length))
+print(test_loader.time_calc(start_time, end_time, len(test_data)))
