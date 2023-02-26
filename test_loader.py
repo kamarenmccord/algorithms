@@ -9,6 +9,7 @@ def get_input_size():
     # function that prompts for user input
     # return a list of viable options
     optional_test_sizes = [2000, 10000, 50000, 100000]
+    return optional_test_sizes[0]
 
 def check_time():
     # get the time before and after the test is ran to compare how long it took
