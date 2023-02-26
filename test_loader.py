@@ -1,10 +1,6 @@
 # Def python prompting for varios load sizes
 # file is to be imported so this file will contain functions
 
-from random import randint
-import time
-import os
-
 def get_input_size():
     # function that prompts for user input
     # return a list of viable options
@@ -17,6 +13,7 @@ def get_input_size():
 def check_time():
     # get the time before and after the test is ran to compare how long it took
     # !!this time is not BIG O but is the time the hardware took to run the test!
-    return time.now()
+    # return time.now()
+    pass
 
 # note this may be ran on multiple operating systems thus OS imports may need to be checked for OS type.
