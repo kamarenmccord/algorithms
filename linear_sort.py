@@ -1,34 +1,51 @@
 # Test file for all things linear
-
 import test_loader
 
 # main variables
 test_data = test_loader.get_input_size()
 integrity_skip = False
 time_taken = 0
+start_time = 0
+end_time = 0
 
 # integrity test skip
-""" should only be used for testing that may take an exessive amount of time 
-the integrity test would double the time the testing can take to finish which can be problematic on longer tests 
-like: O(!) then linear searching 100,000 bits!!"""
+"""
+should only be used for testing 
+this may take an exessive amount of time 
+the integrity test can double the time or worse 
+like: O(!) then linear searching (test) 100,000 entities!!
+"""
 integrity_skip=False
 if integrity_skip:
     passed_integrity = True
 
 # get current time before running
-for firstIterator in test_data:
-    for secondIterator in test_data:
-        if firstIterator > secondIterator:
-            swapVar = secondIterator
-            secondIterator = firstIterator
-            firstIterator = swapVar
+start_time = test_loader.check_time()
+
+# Do a sort - may be a function call later
+# Bubble sort O(N^2)
+length = len(test_data)
+for i in range(length):
+    already_sorted = True
+    for j in range(length-i-1):
+        if test_data[j] > test_data[j+1]:
+            test_data[j], test_data[j+1] = test_data[j+1], test_data[j]
+            already_sorted = False
+    if already_sorted:
+        break
+
 
 # get time after running
+end_time = test_loader.check_time()
 # get difference on times and store this number
+time_taken = end_time - start_time
 
-#test the integrity of the sort using a linear search
+#test the integrity of the sort
+if not integrity_skip:
+    test_passed = test_loader.integrity_check(test_data)
+    print(f'Integrity test passed: {test_passed}')
+    if test_passed == False:
+        print(test_data[:25])
 
-# print how long it took and note wheather or note the integrity test passed
-
-
-# closure or loopback
+# print how long it took to sort
+print(test_loader.time_calc(start_time, end_time, length))

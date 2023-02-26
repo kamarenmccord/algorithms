@@ -1,6 +1,7 @@
 # Def python prompting for varios load sizes
 # file is to be imported so this file will contain functions
 from random import randint
+import time
 
 def get_input_size():
     # function that prompts for user input
@@ -17,17 +18,18 @@ def get_input_size():
 def check_time():
     # get the time before and after the test is ran to compare how long it took
     # !!this time is not BIG O but is the time the hardware took to run the test!
-    # return time.now()
-    pass
+    return time.time()
+
+def time_calc(start_time, end_time, load_size=0):
+    time_taken = end_time - start_time
+    return f'The Algorithm on this hardware took:\n{time_taken}ms\n{load_size} entities processed'
 
 def integrity_check(sortedArray):
     # checks a single dimensional array for numbers that are out of order
-    currentNumb=0
+    first_numb=0
     for data in sortedArray:
-        if data < currentNumb:
+        if data < first_numb:
+            print(f'INTEGRITY CHECK FAILED THIS SORT IS BROKEN:\n{first_numb} is larger than {data}\n')
             return False
-        currentNumb=data
+        first_numb=data
     return True
-        
-
-# note this may be ran on multiple operating systems thus OS imports may need to be checked for OS type.
