@@ -8,7 +8,7 @@ import os
 def get_input_size():
     # function that prompts for user input
     # return a list of viable options
-    optional_test_sizes = [2000, 10000, 50000, 100000]\
+    optional_test_sizes = [2000, 10000, 50000, 100000]
     # prompt user; tell all sizes and have choose numerically
     # error check
     # return array size
