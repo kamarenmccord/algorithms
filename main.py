@@ -1,14 +1,11 @@
 # Test file for all things linear
 import test_loader
-from buble_sort import bubble_sort
+from time import sleep
+from os import system, name
+from globals import *
 
-algorithm_options = [
-    bubble_sort,
-]
-
-exit_words = [
-    "quit", "exit", "end", "stop",
-]
+def clear():
+    system("cls" if name == "nt" else "clear")
 
 def exit_function():
     #print text to screen
@@ -35,8 +32,8 @@ def execute_algo(algo_numb):
     start_time = test_loader.check_time()
 
     # run an algo
-    algorithm_options[algo_numb](test_data)
-    
+    ALGORITHM_OPTIONS[algo_numb](test_data)
+
     # get time after running
     end_time = test_loader.check_time()
 
@@ -61,17 +58,19 @@ while True:
     user_option = get_input()
 
     # check input for false or error conditions
-    if user_option.lower() in exit_words:
+    if user_option.lower() in EXIT_WORDS:
         exit_function()
     else:
         # create end condition
         try:
             user_option = int(user_option)
-            if user_option <= len(algorithm_options) and user_option > 0:
+            if user_option <= len(ALGORITHM_OPTIONS) and user_option > 0:
                 execute_algo(user_option)
             else:
                 print("this option is not avaliable")
         except ValueError:
             print("there has been an error with your input.\nTry again!!")
  
+        sleep(CLEAR_SPEED)
+        clear()
         # do a pause statement then clear the screen
