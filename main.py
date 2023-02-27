@@ -32,7 +32,7 @@ def execute_algo(algo_numb):
     start_time = test_loader.check_time()
 
     # run an algo
-    ALGORITHM_OPTIONS[algo_numb](test_data)
+    ALGORITHM_OPTIONS[algo_numb]["function"](test_data)
 
     # get time after running
     end_time = test_loader.check_time()
@@ -47,37 +47,49 @@ def execute_algo(algo_numb):
     # print how long it took to sort
     print(test_loader.time_calc(start_time, end_time, len(test_data)))
 
-def get_input():
-    print("enter something here:")
-    return input("> ")
+def check_exit():
+    """ replaces the input prompt to check for any exit words then passes input back """
+    keywords = input("> ")
+    if keywords.lower() in EXIT_WORDS:
+        exit_function()
+    return keywords
 
-### TODO
-# print greeting to program and explain what does
+def print_avaliable_algorithms():
+    for numb, item in enumerate(ALGORITHM_OPTIONS, 1):
+        name = item["name"]
+        print(f"{numb}) {name}")
+
 def do_greeting():
     # clear the screen
+    clear()
+    print("\n\n\n")
     # print out a friendly hello
+    print("hello wolrd")
     # give some information
+    print("This is what the program can do, heres some help information")
     # ascii art mabye
+    print("""
+      ฅ/ᐠ. ̫ .ᐟ\ฅ < Meow""")
+    print("========================")
     # prompt to hit enter to begin (basic input will do, wont be saved)
-    # clear screen again
+    print("press enter to continue...")
+    check_exit()
+    clear()
 
+do_greeting()
 while True:
     # print entry data / option info
-    user_option = get_input()
-
-    # check input for false or error conditions
-    if user_option.lower() in EXIT_WORDS:
-        exit_function()
-    else:
-        # create end condition
-        try:
-            user_option = int(user_option)
-            if user_option <= len(ALGORITHM_OPTIONS) and user_option > 0:
-                execute_algo(user_option)
-            else:
-                print("this option is not avaliable")
-        except ValueError:
-            print("there has been an error with your input.\nTry again!!")
+    print("Enter an option to test the algorithm:")
+    print_avaliable_algorithms()
+    user_option = check_exit()
+    try:
+        user_option = int(user_option)
+        if user_option <= len(ALGORITHM_OPTIONS) and user_option > 0:
+            execute_algo(user_option)
+        else:
+            print("this option is not avaliable")
+    except ValueError:
+        print("there has been an error with your input.\nTry again!!")
  
-        sleep(CLEAR_SPEED)
-        clear()
+    sleep(CLEAR_SPEED)
+    clear()
