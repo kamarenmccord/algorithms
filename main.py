@@ -47,8 +47,13 @@ def execute_algo(algo_numb):
     # print how long it took to sort
     print(test_loader.time_calc(start_time, end_time, len(test_data)))
 
-def check_exit():
+def show_settings():
+    pass
+
+def check_exit(skip_line=True):
     """ replaces the input prompt to check for any exit words then passes input back """
+    if skip_line:
+        print("\n")
     keywords = input("> ")
     if keywords.lower() in EXIT_WORDS:
         exit_function()
@@ -64,32 +69,34 @@ def do_greeting():
     clear()
     print("\n\n\n")
     # print out a friendly hello
-    print("hello wolrd")
-    # give some information
-    print("This is what the program can do, heres some help information")
-    # ascii art mabye
+    print("Welcome to the algorithm runner\nThis Program can execute many searches with various input sizes.")
+    print("To see how long a search or sort will take choose one from a list and let it run!")
     print("""
       ฅ/ᐠ. ̫ .ᐟ\ฅ < Meow""")
     print("========================")
-    # prompt to hit enter to begin (basic input will do, wont be saved)
     print("press enter to continue...")
-    check_exit()
+    check_exit(skip_line=False)
     clear()
 
 do_greeting()
 while True:
     # print entry data / option info
-    print("Enter an option to test the algorithm:")
+    print("Enter an option to test an algorithm:")
     print_avaliable_algorithms()
+
     user_option = check_exit()
-    try:
-        user_option = int(user_option)
-        if user_option <= len(ALGORITHM_OPTIONS) and user_option > 0:
-            execute_algo(user_option)
-        else:
-            print("this option is not avaliable")
-    except ValueError:
-        print("there has been an error with your input.\nTry again!!")
+    # check to see if asking for options
+    if user_option.lower() in SETTINGS_KEYWORDS:
+        show_settings()
+    else:
+        try:
+            user_option = int(user_option)
+            if user_option <= len(ALGORITHM_OPTIONS) and user_option > 0:
+                execute_algo(user_option)
+            else:
+                print("this option is not avaliable")
+        except ValueError:
+            print("There has been an error with your input.\nThe input is not an option or contains incorrect matching\nTry again!!")
  
-    sleep(CLEAR_SPEED)
+    sleep(OPTIONS["CLEAR_SPEED"])
     clear()
