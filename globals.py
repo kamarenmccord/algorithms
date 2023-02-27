@@ -7,5 +7,5 @@ ALGORITHM_OPTIONS = [
 ]
 
 EXIT_WORDS = [
-    "quit", "exit", "end", "stop",
+    "quit", "exit", "end", "stop", "esc"
 ]
