@@ -53,6 +53,14 @@ def get_input():
 
 ### TODO
 # print greeting to program and explain what does
+def do_greeting():
+    # clear the screen
+    # print out a friendly hello
+    # give some information
+    # ascii art mabye
+    # prompt to hit enter to begin (basic input will do, wont be saved)
+    # clear screen again
+
 while True:
     # print entry data / option info
     user_option = get_input()
