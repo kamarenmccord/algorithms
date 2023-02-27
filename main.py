@@ -73,4 +73,3 @@ while True:
  
         sleep(CLEAR_SPEED)
         clear()
-        # do a pause statement then clear the screen
