@@ -2,11 +2,8 @@
 import test_loader
 from buble_sort import bubble_sort
 
-# main variables
-loop_switch = True
-
 algorithm_options = [
-    "bubble_sort",
+    bubble_sort,
 ]
 
 exit_words = [
@@ -19,8 +16,9 @@ def exit_function():
     # exit program
     exit()
 
-def execute_algo():
+def execute_algo(algo_numb):
     # Main vars
+    algo_numb -=1
     # integrity test skip
     """
     should only be used for testing 
@@ -35,8 +33,10 @@ def execute_algo():
 
     # time before the program ran
     start_time = test_loader.check_time()
+
     # run an algo
-    bubble_sort(test_data)
+    algorithm_options[algo_numb](test_data)
+    
     # get time after running
     end_time = test_loader.check_time()
 
@@ -56,15 +56,22 @@ def get_input():
 
 ### TODO
 # print greeting to program and explain what does
-
-while loop_switch:
+while True:
     # print entry data / option info
-    # ask for input to stop loop
     user_option = get_input()
-    # check input for false condition
-    if user_option in exit_words:
-        loop_switch = False
+
+    # check input for false or error conditions
+    if user_option.lower() in exit_words:
         exit_function()
     else:
         # create end condition
-        execute_algo()
+        try:
+            user_option = int(user_option)
+            if user_option <= len(algorithm_options) and user_option > 0:
+                execute_algo(user_option)
+            else:
+                print("this option is not avaliable")
+        except ValueError:
+            print("there has been an error with your input.\nTry again!!")
+ 
+        # do a pause statement then clear the screen
