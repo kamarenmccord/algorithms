@@ -1,29 +1,30 @@
-# Test file for all things linear
+""" Main file that runs the rest of the program, only frontend logic is here """
 import test_loader
 from time import sleep
 from os import system, name
 from globals import *
 
 def clear():
+    # clears the screen on either windows or bash systems
     system("cls" if name == "nt" else "clear")
 
+def new_line(numb=1):
+    # just prints a empty line out to give variable spacing
+    # numb will be the count of lines it will print spacing for
+    for _ in range(numb):
+        print()
+
 def exit_function():
-    #print text to screen
-    # pause for a second for the user to read
-    # exit program
+    # runs on exit, gives user closure
+    clear()
+    new_line()
+    print(EXIT_MESSAGE)
+    input("-=Press enter to LEAVE=-\n\n")
+    clear()
     exit()
 
 def execute_algo(algo_numb):
-    # Main vars
     algo_numb -=1
-    # integrity test skip
-    """
-    should only be used for testing 
-    this may take an exessive amount of time 
-    the integrity test can double the time or worse 
-    like: O(!) then linear searching (test) 100,000 entities!!
-    """
-    integrity_skip = False
     start_time, end_time = 0, 0
     # Get input size before mesuring the time
     test_data = test_loader.get_input_size()
@@ -38,11 +39,8 @@ def execute_algo(algo_numb):
     end_time = test_loader.check_time()
 
     #test the integrity of the sort
-    if not integrity_skip:
-        test_passed = test_loader.integrity_check(test_data)
-        print(f'Integrity test passed: {test_passed}')
-        if test_passed == False:
-            print(test_data[:25])
+    if not OPTIONS["INTEGRITY_SKIP"]:
+        test_loader.integrity_check(test_data)
 
     # print how long it took to sort
     print(test_loader.time_calc(start_time, end_time, len(test_data)))
@@ -84,19 +82,16 @@ while True:
     print("Enter an option to test an algorithm:")
     print_avaliable_algorithms()
 
-    user_option = check_exit()
+    user_option = check_exit(skip_line=False)
     # check to see if asking for options
     if user_option.lower() in SETTINGS_KEYWORDS:
         show_settings()
     else:
-        try:
-            user_option = int(user_option)
-            if user_option <= len(ALGORITHM_OPTIONS) and user_option > 0:
-                execute_algo(user_option)
-            else:
-                print("this option is not avaliable")
-        except ValueError:
-            print("There has been an error with your input.\nThe input is not an option or contains incorrect matching\nTry again!!")
+        user_option = test_loader.try_for_int(user_option)
+        if user_option <= len(ALGORITHM_OPTIONS) and user_option > 0:
+            execute_algo(user_option)
+        else:
+            print("This option is not avaliable")
  
     sleep(OPTIONS["CLEAR_SPEED"])
     clear()
