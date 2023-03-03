@@ -51,3 +51,25 @@ def integrity_check(sortedArray):
         return False
     passing_grade=True
     return True
+
+def execute_algo(algo_numb):
+    algo_numb -=1
+    start_time, end_time = 0, 0
+    # Get input size before mesuring the time
+    test_data = get_input_size()
+
+    # time before the program ran
+    start_time = check_time()
+
+    # run an algo
+    ALGORITHM_OPTIONS[algo_numb]["function"](test_data)
+
+    # get time after running
+    end_time = check_time()
+
+    #test the integrity of the sort
+    if not OPTIONS["INTEGRITY_SKIP"]:
+        integrity_check(test_data)
+
+    # print how long it took to sort
+    print(time_calc(start_time, end_time, len(test_data)))
