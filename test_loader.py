@@ -1,29 +1,15 @@
 # Def python prompting for varios load sizes
 # file is to be imported so this file will contain functions
 from random import randint
-from globals import *
 import time
+from logic_file import get_input_size
+from globals import *
 
 def try_for_int(expected_numb):
     try:
         return int(expected_numb)
     except ValueError:
         print("There has been an error with your input.\nThe input is not an option or contains incorrect matching\nTry again!!")
-
-def get_input_size():
-    # function that prompts for user input
-    print("How many entities would you like to use?")
-    print("Using default 2,000")
-    time.sleep(OPTIONS["CLEAR_SPEED"])
-    # return a list of viable options
-    optional_test_sizes = [2000, 10000, 50000, 100000]
-    # prompt user; tell all sizes and have choose numerically
-    # error check
-
-    unsorted_data = []
-    for _ in range(optional_test_sizes[0]):
-        unsorted_data.append(randint(1, 100000))
-    return unsorted_data
 
 def check_time():
     # get the time before and after the test is ran to compare how long it took
@@ -73,3 +59,6 @@ def execute_algo(algo_numb):
 
     # print how long it took to sort
     print(time_calc(start_time, end_time, len(test_data)))
+    # simple pause for a chance to read output
+    if not OPTIONS["FULL_AUTO"]:
+        input("-= enter to continue =-")
