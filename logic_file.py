@@ -63,17 +63,25 @@ def check_exit(skip_line=True):
 
 def get_input_size():
     # function that prompts for user input
-    print("How many entities would you like to use?")
-    print("Using default 2,000")
-    sleep(OPTIONS["CLEAR_SPEED"])
-    # return a list of viable options
-    optional_test_sizes = [2000, 10000, 50000, 100000]
-    # prompt user; tell all sizes and have choose numerically
-    # error check
-    # accept input and log to variable
-    clear()
+    while True:
+        clear()
+        print("How many entities would you like to use?")
+        for numb, option in enumerate(OPTIONS["TEST_SIZE"], 1):
+            print(f"{numb}) {option}")
+        choice = check_exit()
+        if choice:
+            choice = try_for_int(choice)
+            if (type(choice) == type(5) and choice-1 >= 0 
+            and choice < len(OPTIONS["TEST_SIZE"])):
+                unsorted_data = []
+                for _ in range(OPTIONS["TEST_SIZE"][choice-1]):
+                    unsorted_data.append(randint(1, 100000))
+                return unsorted_data
+            print("this input size is not accepted, try again from the list")
+            sleep(OPTIONS["CLEAR_SPEED"])
 
-    unsorted_data = []
-    for _ in range(optional_test_sizes[0]):
-        unsorted_data.append(randint(1, 100000))
-    return unsorted_data
+def try_for_int(expected_numb):
+    try:
+        return int(expected_numb)
+    except ValueError:
+        print("There has been an error with your input.\nThe input is not an option or contains incorrect matching\nTry again!!")

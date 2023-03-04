@@ -4,6 +4,7 @@ OPTIONS = {
     "CLEAR_SPEED": 2,   # how fast the prompt stops before freshing, for longer holds use a input statement
     "INTEGRITY_SKIP": False,  # should only be used for debuging; test runs in o(N)
     "FULL_AUTO": False,  # full auto true will allow to skip all enter prompts so that ALL the algo's can run then log out to a SQL file
+    "TEST_SIZE" : [2000, 10000, 50000, 100000]
 }
 
 ALGORITHM_OPTIONS = [{

@@ -1,7 +1,6 @@
 """ Main file that runs the rest of the program, only frontend logic is here """
 import test_loader
 from time import sleep
-from os import system, name
 from globals import *
 from test_loader import execute_algo
 from logic_file import (
@@ -21,10 +20,11 @@ while True:
         show_settings()
     else:
         user_option = test_loader.try_for_int(user_option)
-        if user_option <= len(ALGORITHM_OPTIONS) and user_option > 0:
-            execute_algo(user_option)
+        if user_option:
+            if user_option <= len(ALGORITHM_OPTIONS) and user_option > 0:
+                execute_algo(user_option)
         else:
-            print("This option is not avaliable")
+            print("You must enter something...")
  
     sleep(OPTIONS["CLEAR_SPEED"])
     clear()

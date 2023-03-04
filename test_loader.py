@@ -2,16 +2,10 @@
 Contains functions for checking the integrity 
 of sorts and how long a test took to run
 """
-from random import randint
 import time
-from logic_file import get_input_size
+from logic_file import get_input_size, try_for_int
 from globals import *
-
-def try_for_int(expected_numb):
-    try:
-        return int(expected_numb)
-    except ValueError:
-        print("There has been an error with your input.\nThe input is not an option or contains incorrect matching\nTry again!!")
+from logic_file import clear
 
 # Time
 def check_time():
@@ -31,6 +25,8 @@ def execute_algo(algo_numb):
     test_data = get_input_size()
 
     # time before the program ran
+    clear()
+    print("The Algorithm is running, please wait...")
     start_time = check_time()
 
     # run an algo
@@ -44,6 +40,8 @@ def execute_algo(algo_numb):
         integrity_check(test_data)
 
     # print how long it took to sort
+    clear()
+    print("results:")
     print(time_calc(start_time, end_time, len(test_data)))
     # simple pause for a chance to read output
     if not OPTIONS["FULL_AUTO"]:
