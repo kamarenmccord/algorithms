@@ -1,4 +1,4 @@
-"""File for the main meat of the application """
+""" Main Logic File, main loop functions """
 from os import system, name
 from globals import (
     EXIT_MESSAGE, EXIT_WORDS, ALGORITHM_OPTIONS, OPTIONS

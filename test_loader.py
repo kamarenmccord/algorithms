@@ -1,5 +1,7 @@
-# Def python prompting for varios load sizes
-# file is to be imported so this file will contain functions
+"""
+Contains functions for checking the integrity 
+of sorts and how long a test took to run
+"""
 from random import randint
 import time
 from logic_file import get_input_size
@@ -11,6 +13,7 @@ def try_for_int(expected_numb):
     except ValueError:
         print("There has been an error with your input.\nThe input is not an option or contains incorrect matching\nTry again!!")
 
+# Time
 def check_time():
     # get the time before and after the test is ran to compare how long it took
     # !!this time is not BIG O but is the time the hardware took to run the test!
@@ -20,24 +23,7 @@ def time_calc(start_time, end_time, load_size=0):
     time_taken = end_time - start_time
     return f'The Algorithm on this hardware took:\n{time_taken}ms\n{load_size} entities processed'
 
-def integrity_check(sortedArray):
-    # checks a single dimensional array for numbers that are out of order
-    # only checks each number after the next and not 1st againt all then 2nd against all
-    first_numb=0
-    passing_grade=True
-    for data in sortedArray:
-        if data < first_numb:
-            print(f'INTEGRITY CHECK FAILED THIS SORT IS BROKEN:\n{first_numb} is larger than {data}\n')
-            passing_grade=False
-        first_numb=data
-
-    print(f'Integrity test passed: {passing_grade}')
-    if not passing_grade:
-        print(sortedArray[:25])
-        return False
-    passing_grade=True
-    return True
-
+# run a given algorithm
 def execute_algo(algo_numb):
     algo_numb -=1
     start_time, end_time = 0, 0
@@ -62,3 +48,22 @@ def execute_algo(algo_numb):
     # simple pause for a chance to read output
     if not OPTIONS["FULL_AUTO"]:
         input("-= enter to continue =-")
+
+# Integrity Test
+def integrity_check(sortedArray):
+    # checks a single dimensional array for numbers that are out of order
+    # only checks each number after the next and not 1st againt all then 2nd against all
+    first_numb=0
+    passing_grade=True
+    for data in sortedArray:
+        if data < first_numb:
+            print(f'INTEGRITY CHECK FAILED THIS SORT IS BROKEN:\n{first_numb} is larger than {data}\n')
+            passing_grade=False
+        first_numb=data
+
+    print(f'Integrity test passed: {passing_grade}')
+    if not passing_grade:
+        print(sortedArray[:25])
+        return False
+    passing_grade=True
+    return True
