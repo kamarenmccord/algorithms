@@ -1,3 +1,10 @@
+"""
+Holds the global settings and variables and 
+other various important data that we need access 
+to everywhere
+~ like a global layer/scope of data
+"""
+
 from buble_sort import bubble_sort
 
 OPTIONS = {
