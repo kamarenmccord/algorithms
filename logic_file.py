@@ -4,6 +4,8 @@ from globals import *
 from random import randint
 from time import sleep
 
+# global vars
+sleep_time = OPTIONS["CLEAR_SPEED"]
 
 #helper functions
 def clear():
@@ -76,12 +78,28 @@ def show_settings():
             # get the option to change
             # present options and messages if there is any
             print(choice)
-            input("> ")
+            sleep(sleep_time)
         except:
-            input("an error has occured, try again")
-            sleep(OPTIONS["CLEAR_SPEED"])
+            print("an error has occured, try again")
+            sleep(sleep_time)
 
 # input
+def get_target(limit):
+    # advanced function defined to return an integer only, will check for exit prompts
+    while True:
+        clear()
+        print(" >Choose a number between< ")
+        print(f'1 - {limit}')
+        target = check_exit()
+        target = try_for_int(target)
+        if target:
+            if (type(target) == type(6) and target > 0
+            and target < limit):
+                return target
+        else:
+            print(" you must choose a number Between the provided range ")
+            sleep(sleep_time)
+
 def check_exit(skip_line=True, back_out=False):
     """ replaces the input prompt to check for any exit words then passes input back """
     if skip_line:
@@ -89,11 +107,11 @@ def check_exit(skip_line=True, back_out=False):
     keywords = input("> ")
     if keywords.lower() in EXIT_WORDS:
         if not back_out:
-            exit_function()
-        return False
-    return keywords
+            exit_function()  # close the app
+        return False  # get out the loop
+    return keywords  # return input clean, may be other menu or number
 
-def get_input_size():
+def get_input_size(sorted=False):
     # function that prompts for user input
     while True:
         clear()
@@ -104,18 +122,21 @@ def get_input_size():
         if choice:
             choice = try_for_int(choice)
             if (type(choice) == type(5) and choice-1 >= 0 
-            and choice < len(OPTIONS["TEST_SIZE"])):
-                unsorted_data = []
-                for _ in range(OPTIONS["TEST_SIZE"][choice-1]):
-                    unsorted_data.append(randint(1, 100000))
-                return unsorted_data
+            and choice-1 < len(OPTIONS["TEST_SIZE"])):
+                data_sample = []
+                choice -= 1
+                if not sorted:
+                    for _ in range(OPTIONS["TEST_SIZE"][choice]):
+                        data_sample.append(randint(1, OPTIONS["RANDOM_UPPPER_LIMIT"]))
+                    return data_sample
+                for n in range(OPTIONS["TEST_SIZE"][choice]):
+                    data_sample.append(n)
+                return data_sample
             print("this input size is not accepted, try again from the list")
-            sleep(OPTIONS["CLEAR_SPEED"])
+            sleep(sleep_time)
 
 def try_for_int(expected_numb):
-    if expected_numb:
-        try:
-            return int(expected_numb)
-        except ValueError:
-            pass
-    return ""
+    try:
+        return int(expected_numb)
+    except:
+        return ""

@@ -18,6 +18,8 @@ while True:
     # check to see if asking for options
     if user_option.lower() in SETTINGS_KEYWORDS:
         show_settings()
+        
+    # run the program as expected
     else:
         user_option = test_loader.try_for_int(user_option)
         if user_option:
