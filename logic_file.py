@@ -1,8 +1,6 @@
 """ Main Logic File, main loop functions """
 from os import system, name
-from globals import (
-    EXIT_MESSAGE, EXIT_WORDS, ALGORITHM_OPTIONS, OPTIONS
-)
+from globals import *
 from random import randint
 from time import sleep
 
@@ -49,16 +47,51 @@ def do_greeting():
     
 # Menus
 def show_settings():
-    pass
+    # build options 1 time
+    optional_list = []
+    for option in OPTIONS:
+        if option not in FIXED_OPTIONS:
+            optional_list.append([option])
+
+    while True:
+        # give options
+        clear()
+        for numb, option in enumerate(optional_list, 1):
+            if option not in FIXED_OPTIONS:
+                print(f"{numb}) {option}")
+        print("You may type end to exit this menu")
+
+        # some way to exit settings
+        choice = check_exit(back_out=True)
+        if not choice:
+            clear()
+            print("exiting settings")
+            return
+
+        # error check input
+        choice = try_for_int(choice)
+        choice -= 1
+        try:
+            choice = OPTIONS[optional_list[choice][0]]
+            # get the option to change
+            # present options and messages if there is any
+            print(choice)
+            input("> ")
+        except:
+            input("an error has occured, try again")
+            sleep(OPTIONS["CLEAR_SPEED"])
+
 
 # input
-def check_exit(skip_line=True):
+def check_exit(skip_line=True, back_out=False):
     """ replaces the input prompt to check for any exit words then passes input back """
     if skip_line:
         print("\n")
     keywords = input("> ")
     if keywords.lower() in EXIT_WORDS:
-        exit_function()
+        if not back_out:
+            exit_function()
+        return False
     return keywords
 
 def get_input_size():
@@ -81,7 +114,9 @@ def get_input_size():
             sleep(OPTIONS["CLEAR_SPEED"])
 
 def try_for_int(expected_numb):
-    try:
-        return int(expected_numb)
-    except ValueError:
-        print("There has been an error with your input.\nThe input is not an option or contains incorrect matching\nTry again!!")
+    if expected_numb:
+        try:
+            return int(expected_numb)
+        except ValueError:
+            pass
+    return ""

@@ -14,14 +14,32 @@ OPTIONS = {
     "TEST_SIZE" : [2000, 10000, 50000, 100000]
 }
 
-ALGORITHM_OPTIONS = [{
-    "name": "Bubble Sort", 
-    "function": bubble_sort
-},]
+# fixed options wont show as adjustable, these should only be affected by the application
+FIXED_OPTIONS = ["FULL_AUTO", "FULL_AUTO"]
 
 SETTINGS_KEYWORDS = [
     "settings", "config", "options", "option", "setting", "configure",
 ]
+
+"""
+Just import your function from the file and give the algorithm the options listed here!
+@name : - the displayed name of the search / sort
+@function: the imported function name
+@target: for searches to tell the app there will be a target to search for instead of sorting
+@message: if there is a message/warning list it here
+"""
+ALGORITHM_OPTIONS = [{
+    "name": "Bubble Sort", 
+    "function": bubble_sort,
+    "Target" : False,
+    "warning": "The 2 largest data sets may take some time to sort",
+},
+{
+    "name": "Binary Search",
+    "function": bubble_sort,
+    'target': True,
+    "warning": False,
+},]
 
 EXIT_WORDS = [
     "quit", "exit", "end", "stop", "esc"
