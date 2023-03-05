@@ -15,13 +15,13 @@ def check_time():
 
 def time_calc(start_time, end_time, load_size=0):
     time_taken = end_time - start_time
-    seconds=False
-    if time_taken > 1000:
-        time_taken = time_taken/1000
-        seconds=True
-    if seconds:
-        return f"The Algorithm on this hardware took:\n{time_taken}Seconds\n{load_size} entities processed"
-    return f'The Algorithm on this hardware took:\n{time_taken}ms\n{load_size} entities processed'
+    minutes=False
+    if time_taken >= 60:
+        time_taken = time_taken/60
+        minutes=True
+    if minutes:
+        return f"The Algorithm on this hardware took:\n{time_taken} Minutes\n{load_size} entities processed"
+    return f'The Algorithm on this hardware took:\n{time_taken} Seconds\n{load_size} entities processed'
 
 def execute_algo(algo_numb):
     algo_numb -= 1
