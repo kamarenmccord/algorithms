@@ -81,7 +81,6 @@ def show_settings():
             input("an error has occured, try again")
             sleep(OPTIONS["CLEAR_SPEED"])
 
-
 # input
 def check_exit(skip_line=True, back_out=False):
     """ replaces the input prompt to check for any exit words then passes input back """
