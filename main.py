@@ -11,7 +11,7 @@ from logic_file import (
 do_greeting()
 while True:
     # print entry data / option info
-    print("Enter an option to test an algorithm:")
+    print("Enter a number to begin or help for help:")
     print_avaliable_algorithms()
 
     user_option = check_exit(skip_line=False)
