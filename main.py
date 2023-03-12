@@ -18,7 +18,7 @@ while True:
     # check to see if asking for options
     if user_option.lower() in SETTINGS_KEYWORDS:
         show_settings()
-    elif user_option.lower() == "help":
+    elif user_option.lower() in HELP_KEYWORDS:
         show_help()
 
     # run the program as expected

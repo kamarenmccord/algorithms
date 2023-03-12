@@ -49,6 +49,8 @@ EXIT_WORDS = [
 
 EXIT_MESSAGE = """ This is the exit message """
 
+HELP_KEYWORDS = ["help", "h"]
+
 HELP_MESSAGE = """ 
 Name
 \tALGORITHM RUNNER
