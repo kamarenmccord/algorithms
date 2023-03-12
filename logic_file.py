@@ -83,6 +83,14 @@ def show_settings():
             print("an error has occured, try again")
             sleep(sleep_time)
 
+def show_help():
+    clear()
+    print()
+    print(HELP_MESSAGE)
+    print()
+    input("> enter to close message <")
+    clear()
+
 # input
 def get_target(limit):
     # advanced function defined to return an integer only, will check for exit prompts

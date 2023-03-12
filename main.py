@@ -5,7 +5,7 @@ from globals import *
 from test_loader import execute_algo
 from logic_file import (
     clear, do_greeting, print_avaliable_algorithms,
-    check_exit, show_settings, 
+    check_exit, show_settings, show_help
 )
 
 do_greeting()
@@ -18,7 +18,9 @@ while True:
     # check to see if asking for options
     if user_option.lower() in SETTINGS_KEYWORDS:
         show_settings()
-        
+    elif user_option.lower() == "help":
+        show_help()
+
     # run the program as expected
     else:
         user_option = test_loader.try_for_int(user_option)

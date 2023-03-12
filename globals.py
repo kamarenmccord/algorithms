@@ -48,3 +48,18 @@ EXIT_WORDS = [
 ]
 
 EXIT_MESSAGE = """ This is the exit message """
+
+HELP_MESSAGE = """ 
+Name
+\tALGORITHM RUNNER
+
+DESCRIPTION
+\t source: https://github.com/kamarenmccord/algorithms
+\t A CLI interface that allows you to run various algorithms
+
+USEAGE
+\t help - shows this interface
+\t settings - opens the settings
+\t quit - quits the program
+\t Number - runs the specified algorithm
+"""
