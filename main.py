@@ -5,7 +5,7 @@ from globals import *
 from test_loader import execute_algo
 from logic_file import (
     clear, do_greeting, print_avaliable_algorithms,
-    check_exit, show_settings, show_help
+    check_exit, show_settings, show_help, get_option,
 )
 
 do_greeting()
@@ -30,5 +30,5 @@ while True:
         else:
             print("You must enter something...")
  
-    sleep(OPTIONS["CLEAR_SPEED"])
+    sleep(get_option("CLEAR_SPEED"))
     clear()

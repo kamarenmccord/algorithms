@@ -5,7 +5,7 @@ from random import randint
 from time import sleep
 
 # global vars
-sleep_time = OPTIONS["CLEAR_SPEED"]
+sleep_time = OPTIONS["CLEAR_SPEED"]["OPTION"]
 
 #helper functions
 def clear():
@@ -17,6 +17,13 @@ def new_line(numb=1):
     # numb will be the count of lines it will print spacing for
     for _ in range(numb):
         print()
+
+def get_option(name, type="OPTION"):
+    """ returns option values in a simpler way, is more scaleable than modding every interation of the call 
+    @name == name of option
+    @type == type [OPTION, MESSAGE, SWITCHABLE]
+    """
+    return OPTIONS[name][type]
 
 # messages / intro / extros
 def exit_function():
@@ -59,8 +66,7 @@ def show_settings():
         # give options
         clear()
         for numb, option in enumerate(optional_list, 1):
-            if option not in FIXED_OPTIONS:
-                print(f"{numb}) {option}")
+            print(f"{numb}) {option[0]}")
         print("You may type end to exit this menu")
 
         # some way to exit settings
@@ -77,7 +83,7 @@ def show_settings():
             choice = OPTIONS[optional_list[choice][0]]
             # get the option to change
             # present options and messages if there is any
-            print(choice)
+            print(choice["OPTION"])
             sleep(sleep_time)
         except:
             print("an error has occured, try again")
@@ -124,20 +130,20 @@ def get_input_size(sorted=False):
     while True:
         clear()
         print("How many entities would you like to use?")
-        for numb, option in enumerate(OPTIONS["TEST_SIZE"], 1):
+        for numb, option in enumerate(get_option("TEST_SIZE"), 1):
             print(f"{numb}) {option}")
         choice = check_exit()
         if choice:
             choice = try_for_int(choice)
             if (type(choice) == type(5) and choice-1 >= 0 
-            and choice-1 < len(OPTIONS["TEST_SIZE"])):
+            and choice-1 < len(get_option("TEST_SIZE"))):
                 data_sample = []
                 choice -= 1
                 if not sorted:
-                    for _ in range(OPTIONS["TEST_SIZE"][choice]):
-                        data_sample.append(randint(1, OPTIONS["RANDOM_UPPPER_LIMIT"]))
+                    for _ in range(get_option("TEST_SIZE")[choice]):
+                        data_sample.append(randint(1, get_option("RANDOM_UPPER_LIMIT")))
                     return data_sample
-                for n in range(OPTIONS["TEST_SIZE"][choice]):
+                for n in range(get_option("TEST_SIZE")[choice]):
                     data_sample.append(n)
                 return data_sample
             print("this input size is not accepted, try again from the list")
