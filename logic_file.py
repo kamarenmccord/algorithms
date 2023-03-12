@@ -46,7 +46,7 @@ def do_greeting():
     print("press enter to continue...")
     check_exit(skip_line=False)
     clear()
-    
+
 # Menus
 def show_settings():
     # build options 1 time

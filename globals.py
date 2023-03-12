@@ -8,13 +8,36 @@ to everywhere
 from buble_sort import bubble_sort
 from binary_search import binary_search
 
+# OPTIONS = {
+#     "CLEAR_SPEED": 2,   # how fast the prompt stops before freshing, for longer holds use a input statement
+#     "INTEGRITY_SKIP": False,  # should only be used for debuging; test runs in o(N)
+#     "FULL_AUTO": False,  # full auto true will allow to skip all enter prompts so that ALL the algo's can run then log out to a SQL file
+#     "TEST_SIZE" : [10**2*2, 10**3, 10**4*5, 10**5],
+#     "RANDOM_UPPPER_LIMIT": 10000,  # random number generation will happen between 1 and this number
+# }
+
 OPTIONS = {
-    "CLEAR_SPEED": 2,   # how fast the prompt stops before freshing, for longer holds use a input statement
-    "INTEGRITY_SKIP": False,  # should only be used for debuging; test runs in o(N)
-    "FULL_AUTO": False,  # full auto true will allow to skip all enter prompts so that ALL the algo's can run then log out to a SQL file
-    "TEST_SIZE" : [10**2*2, 10**3, 10**4*5, 10**5],
-    "RANDOM_UPPPER_LIMIT": 10000,  # random number generation will happen between 1 and this number
-}
+"CLEAR_SPEED": {
+    "OPTION": 2,
+    "MESSAGE": "how fast the prompt pauses before refreshing, number is in seconds",
+    "SWITCHABLE": True
+},"INTEGRITY_SKIP": {
+    "OPTION": False,
+    "MESSAGE": "Only for debugging, runs a test in O(N) will add exess time and can hider performance",
+    "SWITCHABLE": True
+}, "RANDOM_UPPER_LIMIT": {
+    "OPTION": 10000,
+    "MESSAGE": "upper bound limit that the random number generator will use, should be at least above 10,000",
+    "SWITCHABLE": True
+}, "FULL_AUTO": {
+    "OPTION": False,
+    "MESSAGE":  "full auto true will allow to skip all enter prompts so that ALL the algo's can run then log out to a SQL file",
+    "SWITCHABLE": False
+}, "TEST_SIZE": {
+    "OPTION": [10**2*2, 10**3, 10**4*5, 10**5],
+    "MESSAGE": "",
+    "SWITCHABLE": False
+}}
 
 # fixed options wont show as adjustable, these should only be affected by the application
 FIXED_OPTIONS = ["FULL_AUTO", "TEST_SIZE"]
@@ -64,4 +87,8 @@ USEAGE
 \t settings - opens the settings
 \t quit - quits the program
 \t Number - runs the specified algorithm
+"""
+
+SETTINGS_MESSAGE = """
+this is to be the settings help guide
 """
