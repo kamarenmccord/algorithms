@@ -70,10 +70,10 @@ def integrity_check(sortedArray):
             print(f'INTEGRITY CHECK FAILED THIS SORT IS BROKEN:\n{first_numb} is larger than {data}\n')
             passing_grade=False
         first_numb=data
-
-    print(f'Integrity test passed: {passing_grade}')
-    print(sortedArray[:25])
-    input('> press enter')
+    if not OPTIONS["SKIP_DIALOGUE"]["OPTION"]:
+        print(f'Integrity test passed: {passing_grade}')
+        print(sortedArray[:25])
+        input('> press enter')
     if not passing_grade:
         return False
     return True

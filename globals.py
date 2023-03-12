@@ -41,7 +41,7 @@ OPTIONS = {
     "OPTION": "> ",
     "MINIMUM": 1,
     "MAXIMUM": 10,
-    "MESSAGE" : "The default text input style\nrange:1 mimimum character\n 10 characters max",
+    "MESSAGE" : "The default text input style\nrange:\n1 mimimum character\n 10 characters max",
     "SWITCHABLE": True,
 }}
 
@@ -102,7 +102,7 @@ This Program can execute many searches with various input sizes.
 To see how long a search or sort will take choose one from a list and let it run!
 
       ฅ/ᐠ. ̫ .ᐟ\ฅ < Meow
-{"="*20}
+{"==="*20}
 
 press enter to continue...
 """

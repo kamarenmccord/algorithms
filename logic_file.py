@@ -113,58 +113,75 @@ def show_settings():
         choice = check_exit(back_out=True)
         if not choice:
             print_s("exiting settings", screen_clear=True)
-            return
+            return False
 
         # error check input
         choice = try_for_int(choice, index=True)
         try:
             # get all the settings related to the choice, not just one thus no helper
-            setting = OPTIONS[optional_list[choice][0]]
+            setting = OPTIONS[optional_list[choice][0]]  # all the data
             setting_message = setting["MESSAGE"]
             setting_value = setting["OPTION"]
+            setting_limit_min = ""
+            setting_limit_max = ""
+
             # integer values will have different stats
             if type(setting_value) == type(1): 
                 setting_limit_min = setting["MINIMUM"]
                 setting_limit_max = setting["MAXIMUM"]
-            changed = False
-
-            # display option info about the option
-            clear()
-            typewriter(str(optional_list[choice][0]).replace("_", " "))
-            typewriter(str(setting_value))
-            if setting_message:
-                print_s(setting_message, protected=True, slowtype=True, long=True, sleep_skip=True, head_lines=2, tail_lines=1)
-            new_value = check_exit(skip_line=False, back_out=True)
-            if not new_value:
-                print_s("Nothing Changed", screen_clear=True)
-                return
-            if new_value:
-                if new_value.lower() in ["true", "false"]:
-                    setting["OPTION"] = try_for_bool(new_value)
-                    changed = True
-                if (type(setting_value) == type(try_for_int(new_value)) and
-                        setting_limit_min >= int(new_value) <= setting_limit_max):
-                    new_value = int(new_value)
-                    setting["OPTION"] = new_value
-                    changed = True
-                if changed:
-                    print_s("Value Set", screen_clear=True, slowtype=True, long=True)
-                else:  # error
-                    print_s(
-                    """
-                    Value was not accepted,
-                    It may be too high or low or the wrong value type
-                    check spelling and try again
-                    """, sleep_add=2, protected=True)
-            else:
-                print_s("value not accepted, try again", protected=True, screen_clear=True, slowtype=True, long=True)
-
         except:
             print_s("an error has occured, try again", protected=True, screen_clear=True, slowtype=True, long=True)
+  
+        # change the setting that is selected
+        change_setting(optional_list[choice][0], setting_message, setting_value, setting_limit_min, setting_limit_max)
 
 def show_help():
     print_s(HELP_MESSAGE, protected=True, slowtype=True, long=True, clear=True, sleep_skip=True, hard_pause=True, head_lines=2, tail_lines=1)
     clear()
+
+def change_setting(name, message, value, limit_min="", limit_max=""):
+                changed = False
+                while not changed:
+                    # display option info about the option
+                    clear()
+                    typewriter(str(name).replace("_", " "))
+                    typewriter(str(value))
+                    if message:
+                        print_s(message, protected=True, slowtype=True, long=True, sleep_skip=True, head_lines=2, tail_lines=1)
+
+                    # get adjustment
+                    new_value = check_exit(skip_line=False, back_out=True)
+
+                    if not new_value:
+                        print_s("Nothing Changed", protected=True, screen_clear=True)
+                        return False
+                    if new_value:
+                        # string checks
+                        if new_value.lower() in ["true", "false"] and type(value) == type(False):
+                            OPTIONS[name]["OPTION"] = try_for_bool(new_value)
+                            changed = True
+                        elif type(value) == type(new_value):
+                            OPTIONS[name]["OPTION"] = new_value
+                            changed=True
+
+                        # integer checks
+                        elif (type(value) == type(try_for_int(new_value)) and
+                                limit_min >= int(new_value) <= limit_max):
+                            OPTIONS[name]["OPTION"] = int(new_value)
+                            changed = True
+                        
+                        if changed:
+                            print_s("Value Set", screen_clear=True, slowtype=True, long=True)
+                            return
+                        else:  # An actual user input happens error
+                            print_s(
+                            """
+                            Value was not accepted,
+                            It may be too high or low or the wrong value type
+                            check spelling and try again
+                            """, sleep_add=2, protected=True)
+                    else:
+                        print_s("value not is accepted, try again", protected=True, screen_clear=True, slowtype=True, long=True)
 
 # input
 def get_target(limit):
