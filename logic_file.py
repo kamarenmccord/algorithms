@@ -223,8 +223,7 @@ def get_target(limit):
         target = check_exit()
         target = try_for_int(target)
         if target:
-            if (type(target) == type(6) and target > 0
-            and target < limit):
+            if (isinstance(target, int) and target > 0 and target <= limit):
                 return target
         else:
             print_s(" you must choose a number Between the provided range ", protected=True, custom_color=warning_color, screen_clear=True, slowtype=True, long=True)
