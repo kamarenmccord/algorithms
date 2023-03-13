@@ -94,7 +94,7 @@ USEAGE
 \t Number - runs the specified algorithm
 """
 
-EXIT_MESSAGE = """ Thanks for trying out my App\n I hoped this helped brought value to you\n\nhave a Great Day!! """
+EXIT_MESSAGE = """ Thanks for trying out my App\n I hoped this helped bring value to you\n\nhave a Great Day!! """
 
 INTRO_MESSAGE = f"""
 Welcome to the algorithm runner
