@@ -11,6 +11,7 @@ warning_color = OPTIONS["TEXT_COLOR"]["WARNING_COLOR"]
 #helper functions
 def clear():
     # clears the screen on either windows or bash systems
+    print(OPTIONS["TEXT_COLOR"]["OPTION"] + "can't touch this")  ## a real quick print to refresh text color
     system("cls" if name == "nt" else "clear")
 
 def print_s(message, custom_color=False, protected=False, slowtype=False, long=False, sleep_add=0, sleep_skip=False, half_step=False, hard_pause=False, head_lines=0, tail_lines=0, screen_clear=False):
