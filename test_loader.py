@@ -5,7 +5,7 @@ of sorts and how long a test took to run
 import time
 from logic_file import get_input_size, try_for_int
 from globals import *
-from logic_file import clear, get_target
+from logic_file import clear, get_target, get_option
 
 # Time
 def check_time():
@@ -48,7 +48,7 @@ def execute_algo(algo_numb):
     end_time = check_time()  # get time after running
 
     #test the integrity of the sort
-    if not OPTIONS["INTEGRITY_SKIP"]:
+    if not get_option("INTEGRITY_SKIP"):
         integrity_check(test_data)
 
     # print how long it took to sort
@@ -70,10 +70,10 @@ def integrity_check(sortedArray):
             print(f'INTEGRITY CHECK FAILED THIS SORT IS BROKEN:\n{first_numb} is larger than {data}\n')
             passing_grade=False
         first_numb=data
-
-    print(f'Integrity test passed: {passing_grade}')
-    if not passing_grade:
+    if not OPTIONS["SKIP_DIALOGUE"]["OPTION"]:
+        print(f'Integrity test passed: {passing_grade}')
         print(sortedArray[:25])
+        input('> press enter')
+    if not passing_grade:
         return False
-    passing_grade=True
     return True
