@@ -6,15 +6,17 @@ from time import sleep
 
 # global vars
 sleep_time = OPTIONS["CLEAR_SPEED"]["OPTION"]
+warning_color = OPTIONS["TEXT_COLOR"]["WARNING_COLOR"]
 
 #helper functions
 def clear():
     # clears the screen on either windows or bash systems
     system("cls" if name == "nt" else "clear")
 
-def print_s(message, protected=False, slowtype=False, long=False, sleep_add=0, sleep_skip=False, half_step=False, hard_pause=False, head_lines=0, tail_lines=0, screen_clear=False):
+def print_s(message, custom_color=False, protected=False, slowtype=False, long=False, sleep_add=0, sleep_skip=False, half_step=False, hard_pause=False, head_lines=0, tail_lines=0, screen_clear=False):
     """ Major overhaul on the basic print statement
     @message - required string to print out
+    @custom_color - prints colored text if given
     @protected - message cannot be skipped
     @slowtype - invoke the typewritter function
     @long - typewrite quickly
@@ -30,7 +32,7 @@ def print_s(message, protected=False, slowtype=False, long=False, sleep_add=0, s
     if not get_option("SKIP_DIALOGUE") or protected:
         print("\n"*head_lines, end="") if head_lines>0 else False
         if message:
-            typewriter(str(message), quick=long) if slowtype else print(message, flush=True)
+            typewriter(str(message) ,quick=long, custom_color=custom_color) if slowtype else print(OPTIONS["TEXT_COLOR"]["OPTION"] + message, flush=True)
         print("\n"*tail_lines, end="") if tail_lines>0 else False
         if not sleep_skip:
             sleep(sleep_time+sleep_add)
@@ -41,9 +43,13 @@ def print_s(message, protected=False, slowtype=False, long=False, sleep_add=0, s
     else:
         pass
 
-def typewriter(word, quick=False):
+def typewriter(word, quick=False, custom_color=False):
+    default_color = OPTIONS["TEXT_COLOR"]['OPTION']
     for letter in word:
-        print(letter, end="", flush=True)
+        if custom_color:
+            print(custom_color + letter, end="", flush=True)
+        else:
+            print(default_color + letter, end="", flush=True)
         sleep(0.01 if quick else 0.08)
     print()
 
@@ -79,7 +85,7 @@ def try_for_int(expected_numb, index=False):
 # messages / intro / extros
 def exit_function():
     # runs on exit, gives user closure
-    print_s(EXIT_MESSAGE, screen_clear=True, head_line=1, protected=True, sleep_skip=True)
+    print_s(EXIT_MESSAGE, screen_clear=True, head_lines=1, protected=True, sleep_skip=True)
     input("-=Press enter to LEAVE=-\n\n")
     clear()
     exit()
@@ -122,27 +128,31 @@ def show_settings():
             setting = OPTIONS[optional_list[choice][0]]  # all the data
             setting_message = setting["MESSAGE"]
             setting_value = setting["OPTION"]
-            setting_limit_min = ""
-            setting_limit_max = ""
-
-            # integer values will have different stats
-            if type(setting_value) == type(1): 
+            try:
                 setting_limit_min = setting["MINIMUM"]
                 setting_limit_max = setting["MAXIMUM"]
+            except KeyError:
+                setting_limit_min = ""
+                setting_limit_max = ""
+
+            # integer values will have different stats
         except:
-            print_s("an error has occured, try again", protected=True, screen_clear=True, slowtype=True, long=True)
+            print_s("an error has occured, try again",custom_color=warning_color, protected=True, screen_clear=True, slowtype=True, long=True)
   
         # change the setting that is selected
         change_setting(optional_list[choice][0], setting_message, setting_value, setting_limit_min, setting_limit_max)
 
 def show_help():
-    print_s(HELP_MESSAGE, protected=True, slowtype=True, long=True, clear=True, sleep_skip=True, hard_pause=True, head_lines=2, tail_lines=1)
+    print_s(HELP_MESSAGE, protected=True, slowtype=True, long=True, screen_clear=True, sleep_skip=True, hard_pause=True, head_lines=2, tail_lines=1)
     clear()
 
 def change_setting(name, message, value, limit_min="", limit_max=""):
                 changed = False
                 while not changed:
                     # display option info about the option
+                    if name == "TEXT_COLOR":
+                        changed = change_color()
+                        return True
                     clear()
                     typewriter(str(name).replace("_", " "))
                     typewriter(str(value))
@@ -179,9 +189,28 @@ def change_setting(name, message, value, limit_min="", limit_max=""):
                             Value was not accepted,
                             It may be too high or low or the wrong value type
                             check spelling and try again
-                            """, sleep_add=2, protected=True)
+                            """,custom_color=warning_color ,sleep_add=2, protected=True)
                     else:
-                        print_s("value not is accepted, try again", protected=True, screen_clear=True, slowtype=True, long=True)
+                        print_s("value not is accepted, try again", protected=True,custom_color=warning_color ,screen_clear=True, slowtype=True, long=True)
+
+def change_color():
+    color_pallet = []
+    master_sheet = OPTIONS["TEXT_COLOR"]["SET"]
+    for color in get_option("TEXT_COLOR", type="SET"):
+        color_pallet.append(color)
+
+    while True:
+        clear()
+        print("Color Selector")
+        for numb, color in enumerate(color_pallet,1):
+            typewriter(f"{numb}) {color}", custom_color=master_sheet[color], quick=True)
+        user_input = check_exit(back_out=True)
+        if not user_input: return
+        user_input = try_for_int(user_input, index=True)
+        if user_input != "" and user_input >= 0:
+            if len(color_pallet) > user_input >=0: 
+                OPTIONS["TEXT_COLOR"]["OPTION"] = OPTIONS["TEXT_COLOR"]["SET"][color_pallet[user_input]]
+                return True
 
 # input
 def get_target(limit):
@@ -197,7 +226,7 @@ def get_target(limit):
             and target < limit):
                 return target
         else:
-            print_s(" you must choose a number Between the provided range ", protected=True, screen_clear=True, slowtype=True, long=True)
+            print_s(" you must choose a number Between the provided range ", protected=True, custom_color=warning_color, screen_clear=True, slowtype=True, long=True)
 
 def check_exit(skip_line=False, back_out=False):
     """ replaces the input prompt to check for any exit words then passes input back """
@@ -229,4 +258,4 @@ def get_input_size(sorted=False):
                 for n in range(get_option("TEST_SIZE")[choice]):
                     data_sample.append(n)
                 return data_sample
-            print_s("this input size is not accepted, try again from the list", protected=True, screen_clear=True, slowtype=True, long=True)
+            print_s("this input size is not accepted, try again from the list",custom_color=warning_color, protected=True, screen_clear=True, slowtype=True, long=True)

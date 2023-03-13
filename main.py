@@ -15,10 +15,10 @@ while True:
     print_avaliable_algorithms()
 
     user_option = check_exit(skip_line=False)
-    # check to see if asking for options
+    # check to see if asking for options or help
     if user_option.lower() in SETTINGS_KEYWORDS:
         show_settings()
-    elif user_option.lower() in HELP_KEYWORDS:
+    if user_option.lower() in HELP_KEYWORDS:
         show_help()
 
     # run the program as expected

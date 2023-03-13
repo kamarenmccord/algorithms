@@ -4,7 +4,7 @@ other various important data that we need access
 to everywhere
 ~ like a global layer/scope of data
 """
-
+from colorama import Fore, Style
 from buble_sort import bubble_sort
 from binary_search import binary_search
 
@@ -42,6 +42,12 @@ OPTIONS = {
     "MINIMUM": 1,
     "MAXIMUM": 10,
     "MESSAGE" : "The default text input style\nrange:\n1 mimimum character\n 10 characters max",
+    "SWITCHABLE": True,
+}, "TEXT_COLOR":{
+    "OPTION": Fore.WHITE,
+    "SET": {"GREEN": Fore.GREEN, "BLUE": Fore.BLUE, "YELLOW": Fore.YELLOW, "BLUE": Fore.BLUE, "CYAN": Fore.CYAN, "WHITE": Fore.WHITE},
+    "WARNING_COLOR": Fore.RED,
+    "MESSAGE": "Changes the text color in the terminal",
     "SWITCHABLE": True,
 }}
 
