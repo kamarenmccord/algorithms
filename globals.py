@@ -51,10 +51,6 @@ OPTIONS = {
     "SWITCHABLE": True,
 }}
 
-SETTINGS_KEYWORDS = [
-    "settings", "config", "options", "option", "setting", "configure",
-]
-
 """
 Just import your function from the file and give the algorithm the options listed here!
 @name : - the displayed name of the search / sort
@@ -79,9 +75,9 @@ EXIT_WORDS = [
     "quit", "exit", "end", "stop", "esc"
 ]
 
-EXIT_MESSAGE = """ This is the exit message """
-
 HELP_KEYWORDS = ["help", "h"]
+
+SETTINGS_KEYWORDS = ["settings", "config", "options", "option", "setting", "configure", "s", "o"]
 
 HELP_MESSAGE = """ 
 Name
@@ -98,9 +94,7 @@ USEAGE
 \t Number - runs the specified algorithm
 """
 
-SETTINGS_MESSAGE = """
-this is to be the settings help guide
-"""
+EXIT_MESSAGE = """ Thanks for trying out my App\n I hoped this helped brought value to you\n\nhave a Great Day!! """
 
 INTRO_MESSAGE = f"""
 Welcome to the algorithm runner
