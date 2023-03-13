@@ -4,7 +4,7 @@ other various important data that we need access
 to everywhere
 ~ like a global layer/scope of data
 """
-from colorama import Fore, Style
+from colorama import Fore
 from buble_sort import bubble_sort
 from binary_search import binary_search
 
